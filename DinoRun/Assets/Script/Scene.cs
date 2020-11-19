@@ -21,7 +21,17 @@ public class Scene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (Application.platform == RuntimePlatform.Android)
+        {
+
+            // Check if Back was pressed this frame
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+
+                // Quit the application
+                Application.Quit();
+            }
+        }
 
         if (SceneManager.GetActiveScene().name.Equals("EndScene")|| SceneManager.GetActiveScene().name.Equals("MenuScene"))
         {
@@ -41,6 +51,15 @@ public class Scene : MonoBehaviour
                     }
                 }
             }
+            if (Application.platform == RuntimePlatform.Android) {
+        
+        // Check if Back was pressed this frame
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            
+            // Quit the application
+            Application.Quit();
+        }
+    }
 
         }
         else if(SceneManager.GetActiveScene().name.Equals("PlayScene")&&_break == false)
