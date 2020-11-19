@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     private bool _jump = true;
     Animator anim;
     BoxCollider2D box;
-    [SerializeField]Score score;
+
+    private bool _isDead = false;
+    
 
 
     // Start is called before the first frame update
@@ -23,10 +25,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space")&&_jump)
+        if (_isDead)
+            Score.instance.SetScore0();
+        for (int i = 0; i < Input.touchCount; ++i)
         {
-            m_Rigibody2D.velocity = Vector2.up * yForce;
-            _jump = false;
+            if (Input.GetTouch(i).phase == TouchPhase.Began)
+            {
+                m_Rigibody2D.velocity = Vector2.up * yForce;
+                _jump = false;
+            }
         }
     }
 
@@ -43,10 +50,21 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            score.SetScore0();
+            _isDead = true;
+            Scene.instance.breakScene();
+            Score.instance.UpdateHighScore();
             anim.SetBool("IsDead", true);
             Destroy(box);
+            StartCoroutine(WaitAndNext());
         }
     }
+    IEnumerator WaitAndNext()
+    {
+        
+        yield return new WaitForSeconds(3);
+        Scene.instance.LoadNextScene();
+    }
+
+
 
 }
