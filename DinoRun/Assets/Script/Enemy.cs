@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     Rigidbody2D m_rigidbody2D;
-    public float _speed = 10;
+    public float _speed = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +16,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         m_rigidbody2D.velocity = Vector2.left * _speed;
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
