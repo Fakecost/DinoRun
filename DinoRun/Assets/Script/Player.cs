@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
             Score.instance.SetScore0();
         for (int i = 0; i < Input.touchCount; ++i)
         {
-            if (Input.GetTouch(i).phase == TouchPhase.Began)
+            if (Input.GetTouch(i).phase == TouchPhase.Began&&_jump)
             {
                 m_Rigibody2D.velocity = Vector2.up * yForce;
                 _jump = false;
